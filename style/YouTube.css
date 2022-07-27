@@ -1,0 +1,6 @@
+
+.ToggleWatchedVideos_Injection {
+
+    opacity : 0.25;
+    filter  : grayscale(100%);
+}
