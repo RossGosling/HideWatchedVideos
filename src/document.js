@@ -32,21 +32,6 @@
         const setHidden = () => {
             try {
 
-                // Remove old stylesheet
-
-                const oldElement = document.getElementById(UNIQUE_ID);
-
-                if (oldElement) {
-
-                    oldElement.parentNode.removeChild(oldElement);
-                }
-
-                // Error handling if there were more elements for some reason
-                if (document.getElementById(UNIQUE_ID)) {
-
-                    return setObscured();
-                }
-
                 // Add new stylesheet
 
                 const element = document.createElement("link");
@@ -58,15 +43,6 @@
 
                 document.body.appendChild(element);
 
-
-            } catch (error) {
-                console.error(error);
-            }
-        }
-
-        const setObscured = () => {
-            try {
-
                 // Remove old stylesheet
 
                 const oldElement = document.getElementById(UNIQUE_ID);
@@ -82,6 +58,14 @@
                     return setObscured();
                 }
 
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        const setObscured = () => {
+            try {
+
                 // Add new stylesheet
 
                 const element = document.createElement("link");
@@ -92,6 +76,21 @@
                 element.setAttribute("href", browser.runtime.getURL(`/style/Obscured.css`));
 
                 document.body.appendChild(element);
+
+                // Remove old stylesheet
+
+                const oldElement = document.getElementById(UNIQUE_ID);
+
+                if (oldElement) {
+
+                    oldElement.parentNode.removeChild(oldElement);
+                }
+
+                // Error handling if there were more elements for some reason
+                if (document.getElementById(UNIQUE_ID)) {
+
+                    return setObscured();
+                }
 
             } catch (error) {
                 console.error(error);
