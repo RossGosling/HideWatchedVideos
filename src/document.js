@@ -105,13 +105,7 @@
                 return  result;
             }
 
-            return Object.keys(config).find(
-                (supportedSiteName) => string
-                    .toLowerCase()
-                    .includes(
-                        supportedSiteName.toLowerCase()
-                    )
-            );
+            return string.toLowerCase() === 'youtube';
 
         }, undefined);
 
@@ -160,11 +154,11 @@
 
                         switch(message.type) {
 
-                            case MESSAGE_ADD_CSS:
-                                return setHidden();
+                            case MESSAGE_SET_HIDDEN:
+                                return Promise.resolve(setHidden());
 
-                            case MESSAGE_REMOVE_CSS:
-                                return setObscured();
+                            case MESSAGE_SET_VISIBLE:
+                                return Promise.resolve(setObscured());
 
                             default:
                                 console.error('Error message.type', message.type);
