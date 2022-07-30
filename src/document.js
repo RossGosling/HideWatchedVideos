@@ -99,17 +99,11 @@
 
         //////////////////////////////////////////////////////
 
-        const siteName = window.location.hostname.split('.').reduce((result, string) => {
-
-            if (typeof result !== 'undefined') {
-                return  result;
-            }
-
+        const isYouTube = window.location.hostname.split('.').some((string) => {
             return string.toLowerCase() === 'youtube';
+        });
 
-        }, undefined);
-
-        if (typeof siteName !== 'undefined') {
+        if (isYouTube) {
 
             //////////////////////////////////////////////////////
 
@@ -122,7 +116,7 @@
                 setObscured();
             }
 
-            console.log(`Instantiated ${siteName} document!`);
+            console.log('Instantiated YouTube document!');
 
             //////////////////////////////////////////////////////
 
