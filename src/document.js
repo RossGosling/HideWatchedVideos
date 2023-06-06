@@ -13,11 +13,16 @@
                 const playbackElements = Array.from(document.getElementsByClassName('ytd-thumbnail-overlay-resume-playback-renderer'));
                 const videoElementsMissingClass = playbackElements
                     .reduce((result, playbackElement) => {
-                        const parent = playbackElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+
+                        // From the progress bar we back up out into the video itself
+                        const parent = playbackElement.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+
                         if (Array.from(parent.classList).includes(UNIQUE_ID) === false) {
                             result.push(parent);
                         }
+
                         return result;
+
                     }, []);
 
                 for (videoElementMissingClass of videoElementsMissingClass) {
@@ -125,8 +130,10 @@
             const observer = new MutationObserver(
                 (mutations) => {
 
+                    // This detects mutations to the overarching class that houses all videos, as YouTube is a single-page website
                     const isTriggered = mutations.some((mutation) => {
-                        return Array.from(mutation.target.classList).includes('ytd-grid-video-renderer');
+                        const classList = Array.from(mutation.target.classList);
+                        return classList.includes('ytd-rich-grid-renderer');
                     })
 
                     if (isTriggered) {
@@ -163,6 +170,11 @@
                     }
                 }
             );
+
+            //////////////////////////////////////////////////////
+
+            // Run classes on first load
+            addClassesToWatchedVideos();
         }
 
         //////////////////////////////////////////////////////
